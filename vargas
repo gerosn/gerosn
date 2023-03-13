@@ -1,0 +1,70 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "flee the facility Internal v1.1 pogi ni vargas",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "Best Flee the facility GUI Scam by Vargas"
+}
+
+GUI:Notification{
+	Title = "Update:",
+	Text = "Scam",
+	Duration = 5,
+	Callback = function() end
+}
+
+GUI:Credit{
+	Name = "Vargas",
+	Description = "Made by",
+	V3rm = "pogi",
+	Discord = "VARGAS"
+}
+
+
+local Tab5 = GUI:Tab{
+	Name = "Misc",
+	Icon = "rbxassetid://8569322835"
+}
+
+Tab5:Button{
+	Name = "Close trade GUI",
+	Description = nil,
+	Callback = function()
+if game.PlaceId == 1738581510 then
+	    game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = false
+
+GUI:Notification{
+	Title = "Alert!",
+	Text = "Visual scam wont work if u close the gui while doing the visual scam.",
+	Duration = 5,
+	Callback = function() end
+}
+else
+GUI:Notification{
+	Title = "Alert!",
+	Text = "Your not in the trading server Join it!! >:(",
+	Duration = 3,
+	Callback = function() end
+}
+end
+	    end
+}
+
+Tab5:Button{
+	Name = "Visual Scam",
+	Description = nil,
+	Callback = function()
+if game.PlaceId == 1738581510 then
+wait(0)
+game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = true
+else
+GUI:Notification{
+	Title = "Alert!",
+	Text = "Your not in the trading server Join it!! >:(",
+	Duration = 3,
+	Callback = function() end
+}
+end
+	    end
+}
