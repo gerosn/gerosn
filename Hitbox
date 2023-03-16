@@ -1,0 +1,45 @@
+local Hitbox = {}
+
+-- Configuration
+Hitbox.Size = Vector3.new(2, 2, 2) -- The size of the hitbox
+Hitbox.Offset = Vector3.new(0, 1, 0) -- The offset of the hitbox from the character's center
+Hitbox.Color = Color3.fromRGB(255, 0, 0) -- The color of the hitbox
+
+-- Variables
+Hitbox.Character = nil
+Hitbox.Part = nil
+
+-- Functions
+function Hitbox:Create(character)
+    self.Character = character
+
+    local part = Instance.new("Part")
+    part.Name = "Hitbox"
+    part.Size = self.Size
+    part.Color = self.Color
+    part.Transparency = 0.5
+    part.Anchored = true
+    part.CanCollide = false
+    part.TopSurface = Enum.SurfaceType.Smooth
+    part.BottomSurface = Enum.SurfaceType.Smooth
+    part.Parent = character
+
+    self.Part = part
+end
+
+function Hitbox:Update()
+    if self.Character and self.Part then
+        local humanoid = self.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            self.Part.CFrame = humanoid.RootPart.CFrame * CFrame.new(self.Offset)
+        end
+    end
+end
+
+function Hitbox:Destroy()
+    if self.Part then
+        self.Part:Destroy()
+    end
+end
+
+return Hitbox
