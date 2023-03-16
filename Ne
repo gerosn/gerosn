@@ -1,0 +1,67 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "Flee the Facility Internal v1.1",
+    Size = UDim2.new(0, 600, 0, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/yourusername/your-repo"
+}
+
+GUI:Notification{
+    Title = "Update:",
+    Text = "This GUI has been discontinued. Please check out our latest version!",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "Your Name",
+    Description = "Made by",
+    Discord = "Your Discord Tag"
+}
+
+local MiscTab = GUI:Tab{
+    Name = "Miscellaneous",
+    Icon = "rbxassetid://8569322835"
+}
+
+MiscTab:Button{
+    Name = "Close Trading GUI",
+    Description = "Closes the trading menu window",
+    Callback = function()
+        if game.PlaceId == 1738581510 then
+            game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = false
+
+            GUI:Notification{
+                Title = "Alert!",
+                Text = "Visual scam won't work if you close the GUI while doing the visual scam.",
+                Duration = 5,
+                Callback = function() end
+            }
+        else
+            GUI:Notification{
+                Title = "Alert!",
+                Text = "You're not in the trading server. Join it to use this feature.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
+MiscTab:Button{
+    Name = "Visual Scam",
+    Description = "Opens the trading menu window for visual scamming",
+    Callback = function()
+        if game.PlaceId == 1738581510 then
+            game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = true
+        else
+            GUI:Notification{
+                Title = "Alert!",
+                Text = "You're not in the trading server. Join it to use this feature.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
