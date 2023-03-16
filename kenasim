@@ -1,0 +1,105 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "Flee the Facility Internal v.11 VARGAS",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/username/repo"
+}
+
+GUI:Notification{
+    Title = "Update:",
+    Text = "This GUI is not a scam.",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "gerosn",
+    Description = "Made by gerosn",
+    V3rm = "gerosn",
+    Discord = "i dont have one"
+}
+
+local TabMisc = GUI:Tab{
+    Name = "Miscellaneous",
+    Icon = "rbxassetid://8569322835"
+}
+
+TabMisc:Button{
+    Name = "Close Trade GUI",
+    Description = "di mo na ko mahal ?",
+    Callback = function()
+        local playerGui = game:GetService("Players").LocalPlayer.PlayerGui
+        if playerGui.MenusScreenGui.TradingMenuWindow.Visible then
+            playerGui.MenusScreenGui.TradingMenuWindow.Visible = false
+            GUI:Notification{
+                Title = "Success",
+                Text = "Trading menu window closed.",
+                Duration = 3,
+                Callback = function() end
+            }
+        else
+            GUI:Notification{
+                Title = "Alert",
+                Text = "Trading menu window is not open.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
+TabMisc:Button{
+    Name = "Visual Scam",
+    Description = "Opens the trading menu window",
+    Callback = function()
+        local playerGui = game:GetService("Players").LocalPlayer.PlayerGui
+        if playerGui.MenusScreenGui.TradingMenuWindow.Visible then
+            GUI:Notification{
+                Title = "Alert",
+                Text = "Trading menu window is already open.",
+                Duration = 3,
+                Callback = function() end
+            }
+        else
+            playerGui.MenusScreenGui.TradingMenuWindow.Visible = true
+            GUI:Notification{
+                Title = "Success",
+                Text = "Trading menu window opened.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
+local TabTeleport = GUI:Tab{
+    Name = "Teleport",
+    Icon = "rbxassetid://8569322931"
+}
+
+TabTeleport:Textbox{
+    Name = "Teleport To Player",
+    Placeholder = "Player Name",
+    Callback = function(value)
+        local player = game:GetService("Players"):FindFirstChild(value)
+        if player then
+            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+            GUI:Notification{
+                Title = "Success",
+                Text = "Teleported to " .. player.Name,
+                Duration = 3,
+                Callback = function() end
+            }
+        else
+            GUI:Notification{
+                Title = "Alert",
+                Text = "Player not found.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
