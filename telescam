@@ -1,0 +1,109 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "Flee the Facility Internal",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+GUI:Notification{
+    Title = "Update:",
+    Text = "Scam",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "Vargas",
+    Description = "Made by",
+    V3rm = "pogi",
+    Discord = "VARGAS"
+}
+
+local Tab5 = GUI:Tab{
+    Name = "Misc",
+    Icon = "rbxassetid://8569322835"
+}
+
+Tab5:Textbox{
+    Name = "Teleport To Player",
+    Description = "Enter player name and max distance",
+    Callback = function(value)
+        local playerName, maxDistance = string.match(value, "^(%S+)%s+(%d+)$")
+        if playerName and maxDistance then
+            local player = game:GetService("Players"):FindFirstChild(playerName)
+            if player then
+                local character = player.Character
+                if character then
+                    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        local distance = (humanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                        if distance <= tonumber(maxDistance) then
+                            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = humanoidRootPart.CFrame
+                        else
+                            GUI:Notification{
+                                Title = "Teleport Failed",
+                                Text = "The player is too far away.",
+                                Duration = 3,
+                                Callback = function() end
+                            }
+                        end
+                    end
+                end
+            else
+                GUI:Notification{
+                    Title = "Teleport Failed",
+                    Text = "Player not found.",
+                    Duration = 3,
+                    Callback = function() end
+                }
+            end
+        else
+            GUI:Notification{
+                Title = "Teleport Failed",
+                Text = "Invalid input format. Use: player_name max_distance.",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
+Tab5:Button{
+    Name = "Close Trade GUI",
+    Description = nil,
+    Callback = function()
+        if game.PlaceId == 1738581510 then
+            game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = false
+
+            GUI:Notification{
+                Title = "Alert!",
+                Text = "Visual scam won't work if you close the GUI while doing the visual scam.",
+                Duration = 5,
+                Callback = function() end
+            }
+        else
+            GUI:Notification{
+                Title = "Alert!",
+                Text = "You are not in the trading server. Join it! >:(",
+                Duration = 3,
+                Callback = function() end
+            }
+        end
+    end
+}
+
+Tab5:Button{
+    Name = "Visual Scam",
+    Description = nil,
+    Callback = function()
+        if game.PlaceId == 1738581510 then
+            game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = true
+
+            local metatable = getrawmetatable(game)
+            setreadonly(metatable, false)
+            local oldNamecall = metatable.__name
+        end
+    end
+}     
