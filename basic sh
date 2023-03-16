@@ -1,0 +1,46 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "Flee the Facility GUI",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+local tradingMenu = game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow
+
+local visualScamEnabled = false
+
+GUI:Notification{
+    Title = "Welcome",
+    Text = "This is a Flee the Facility GUI!",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "Made by ChatGPT",
+    Description = "Enjoy using this GUI!",
+    V3rm = "N/A",
+    Discord = "ChatGPT#0001"
+}
+
+local Tab1 = GUI:Tab{
+    Name = "Features",
+    Icon = "rbxassetid://8569322835"
+}
+
+Tab1:Toggle{
+    Name = "Visual Scam",
+    Description = "Turn on/off the visual scam feature.",
+    Default = visualScamEnabled,
+    Callback = function(value)
+        visualScamEnabled = value
+        if visualScamEnabled then
+            tradingMenu.Visible = true
+        else
+            tradingMenu.Visible = false
+        end
+    end
+}
+
