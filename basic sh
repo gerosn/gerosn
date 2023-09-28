@@ -19,7 +19,7 @@ GUI:Notification{
 }
 
 GUI:Credit{
-    Name = "Made by Vargas you should contact me for more information of how the tirck work",
+    Name = "Made by Vargas you should contact me for more information of how the trick work",
     Description = "Skem Trickinist bugger!",
     V3rm = "N/A",
     Discord = "Six-Vargas"
