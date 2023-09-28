@@ -12,17 +12,17 @@ local tradingMenu = game:GetService("Players").LocalPlayer.PlayerGui.MenusScreen
 local visualScamEnabled = false
 
 GUI:Notification{
-    Title = "Welcome",
+    Title = "Welcome Vargas",
     Text = "This is a Flee the Facility GUI!",
     Duration = 5,
     Callback = function() end
 }
 
 GUI:Credit{
-    Name = "Made by ChatGPT",
-    Description = "Enjoy using this GUI!",
+    Name = "Made by Vargas you should contact me for more information of how the tirck work",
+    Description = "Skem Trickinist bugger!",
     V3rm = "N/A",
-    Discord = "ChatGPT#0001"
+    Discord = "Six-Vargas"
 }
 
 local Tab1 = GUI:Tab{
@@ -31,7 +31,7 @@ local Tab1 = GUI:Tab{
 }
 
 Tab1:Toggle{
-    Name = "Visual Scam",
+    Name = "Ez Hammer Trick",
     Description = "Turn on/off the visual scam feature.",
     Default = visualScamEnabled,
     Callback = function(value)
