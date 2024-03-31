@@ -73,24 +73,9 @@ end
 
 local function tradePlayer(player)
     if player then
-        -- Open trade menu with the player
-        -- (Assuming `openTradeMenuWithPlayer(player)` is a function to open the trade menu)
-        -- Replace this with the actual function in your game
-        openTradeMenuWithPlayer(player)
-        
-        -- Assuming items have been added to the trade menu already
-        
-        -- Simulate pressing the "X" button to close the trade menu
-        -- (Assuming `closeTradeMenu()` is a function to close the trade menu)
-        -- Replace this with the actual function in your game that closes the trade menu
-        closeTradeMenu()
-        
-        -- Enable visual scam
         visualScamEnabled = true
         tradingMenu.Visible = true
-        
         print("Trading with " .. player.Name)
-        
         -- Move towards the player (basic movement logic)
         local humanoidRootPart = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
         local targetPosition = player.Character.HumanoidRootPart.Position
@@ -114,6 +99,5 @@ while true do
         -- Send the trade message
         print("Trading Spooky Set For Party Set")
     end
-    
-    wait(1)
+    wait(4) -- Ensure that the spamming occurs every 4 seconds
 end
