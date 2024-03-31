@@ -1,0 +1,119 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+local GUI = Mercury:Create{
+    Name = "Flee the Facility GUI",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+local tradingMenu = game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow
+local visualScamEnabled = false
+local botEnabled = false
+local spammerEnabled = false
+
+GUI:Notification{
+    Title = "Welcome Vargas",
+    Text = "This is a Flee the Facility GUI!",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "Made by Vargas you should contact me for more information of how the trick work",
+    Description = "Skem Trickinist bugger!",
+    V3rm = "N/A",
+    Discord = "Six-Vargas"
+}
+
+local Tab1 = GUI:Tab{
+    Name = "Features",
+    Icon = "rbxassetid://8569322835"
+}
+
+local visualScamToggle = Tab1:Toggle{
+    Name = "Enable Visual Scam",
+    Description = "Turn on/off the visual scam feature.",
+    Default = visualScamEnabled,
+    Callback = function(value)
+        visualScamEnabled = value
+        if visualScamEnabled then
+            tradingMenu.Visible = true
+        else
+            tradingMenu.Visible = false
+        end
+    end
+}
+
+local botToggle = Tab1:Toggle{
+    Name = "Enable Bot",
+    Description = "Turn on/off the bot feature.",
+    Default = botEnabled,
+    Callback = function(value)
+        botEnabled = value
+    end
+}
+
+local spammerToggle = Tab1:Toggle{
+    Name = "Enable Spammer",
+    Description = "Turn on/off the spammer feature.",
+    Default = spammerEnabled,
+    Callback = function(value)
+        spammerEnabled = value
+    end
+}
+
+local function findPlayerToTrade()
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+        if player ~= game:GetService("Players").LocalPlayer then
+            return player
+        end
+    end
+    return nil
+end
+
+local function tradePlayer(player)
+    if player then
+        -- Open trade menu with the player
+        -- (Assuming `openTradeMenuWithPlayer(player)` is a function to open the trade menu)
+        -- Replace this with the actual function in your game
+        openTradeMenuWithPlayer(player)
+        
+        -- Assuming items have been added to the trade menu already
+        
+        -- Simulate pressing the "X" button to close the trade menu
+        -- (Assuming `closeTradeMenu()` is a function to close the trade menu)
+        -- Replace this with the actual function in your game that closes the trade menu
+        closeTradeMenu()
+        
+        -- Enable visual scam
+        visualScamEnabled = true
+        tradingMenu.Visible = true
+        
+        print("Trading with " .. player.Name)
+        
+        -- Move towards the player (basic movement logic)
+        local humanoidRootPart = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        local targetPosition = player.Character.HumanoidRootPart.Position
+        while (humanoidRootPart.Position - targetPosition).magnitude > 3 do
+            game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(targetPosition)
+            wait(0.1)
+        end
+    else
+        print("No player found to trade")
+    end
+end
+
+while true do
+    if botEnabled then
+        wait(5)
+        local playerToTrade = findPlayerToTrade()
+        tradePlayer(playerToTrade)
+    end
+    
+    if spammerEnabled then
+        -- Send the trade message
+        print("Trading Spooky Set For Party Set")
+    end
+    
+    wait(1)
+end
