@@ -1,0 +1,94 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+local GUI = Mercury:Create{
+    Name = "Flee the Facility GUI",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+local tradingMenu = game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow
+local visualScamEnabled = false
+local botEnabled = false -- Flag to control bot's activity
+
+GUI:Notification{
+    Title = "Welcome Vargas",
+    Text = "This is a Flee the Facility GUI!",
+    Duration = 5,
+    Callback = function() end
+}
+
+GUI:Credit{
+    Name = "Made by Vargas you should contact me for more information of how the trick work",
+    Description = "Skem Trickinist bugger!",
+    V3rm = "N/A",
+    Discord = "Six-Vargas"
+}
+
+local Tab1 = GUI:Tab{
+    Name = "Features",
+    Icon = "rbxassetid://8569322835"
+}
+
+Tab1:Toggle{
+    Name = "Visual Scam By Vargas Don't Resell Or I will remove your access to this script",
+    Description = "Turn on/off the visual scam feature.",
+    Default = visualScamEnabled,
+    Callback = function(value)
+        visualScamEnabled = value
+        if visualScamEnabled then
+            tradingMenu.Visible = true
+        else
+            tradingMenu.Visible = false
+        end
+    end
+}
+
+-- Toggle button for enabling/disabling the bot
+local botToggle = GUI:Toggle{
+    Name = "Enable Bot",
+    Description = "Turn on/off the bot feature.",
+    Default = botEnabled,
+    Callback = function(value)
+        botEnabled = value
+    end
+}
+
+-- Bot Script
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Function to find a player to trade
+local function findPlayerToTrade()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Function to enable visual scam and trade a player
+local function tradePlayer(player)
+    if player then
+        visualScamEnabled = true
+        tradingMenu.Visible = true
+        -- Trade with the player
+        -- Implement your trade logic here
+        print("Trading with " .. player.Name)
+    else
+        print("No player found to trade")
+    end
+end
+
+-- Main loop to continuously find and trade players if the bot is enabled
+while true do
+    if botEnabled then
+        wait(5) -- Adjust the wait time as needed
+        local playerToTrade = findPlayerToTrade()
+        tradePlayer(playerToTrade)
+    else
+        wait(1)
+    end
+end
+}
