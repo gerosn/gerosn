@@ -1,0 +1,88 @@
+-- Load Mercury Library
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+-- GUI Creation
+local GUI = Mercury:Create{
+    Name = "Universal Trading GUI",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
+}
+
+-- Variables
+local visualScamEnabled = false
+local tradeFreezeEnabled = false
+
+-- Welcome Notification
+GUI:Notification{
+    Title = "Welcome, Vargas",
+    Text = "This is a universal trading GUI!",
+    Duration = 5,
+    Callback = function() end
+}
+
+-- Credits Section
+GUI:Credit{
+    Name = "Made by Vargas",
+    Description = "Contact me for information on how these tricks work.",
+    V3rm = "N/A",
+    Discord = "Six-Vargas"
+}
+
+-- Features Tab
+local Tab1 = GUI:Tab{
+    Name = "Features",
+    Icon = "rbxassetid://8569322835"
+}
+
+-- Flee the Facility: Visual Scam Feature
+Tab1:Toggle{
+    Name = "Ez Hammer Trick",
+    Description = "Turn on/off the visual scam feature for Flee the Facility.",
+    Default = visualScamEnabled,
+    Callback = function(value)
+        visualScamEnabled = value
+        local tradingMenu = game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow
+        if tradingMenu then
+            tradingMenu.Visible = visualScamEnabled
+        else
+            warn("Trading menu not found! Please ensure you are in the correct game.")
+        end
+    end
+}
+
+-- MM2: Trade Freeze Feature
+local MM2Section = Tab1:Section{
+    Name = "MM2 Features",
+    Description = "Features specific to Murder Mystery 2."
+}
+
+-- Button to reveal the toggle
+MM2Section:Button{
+    Name = "Trade Freeze",
+    Description = "Click to reveal the Trade Freeze toggle.",
+    Callback = function()
+        GUI:Notification{
+            Title = "MM2 Trade Freeze",
+            Text = "You can now toggle the trade freeze feature.",
+            Duration = 3,
+            Callback = function() end
+        }
+
+        MM2Section:Toggle{
+            Name = "Enable Trade Freeze",
+            Description = "Toggle on/off the trade freeze feature.",
+            Default = tradeFreezeEnabled,
+            Callback = function(value)
+                tradeFreezeEnabled = value
+                if tradeFreezeEnabled then
+                    -- Add the logic for freezing trades in MM2 here
+                    print("Trade freeze enabled!")
+                else
+                    -- Add the logic for unfreezing trades in MM2 here
+                    print("Trade freeze disabled!")
+                end
+            end
+        }
+    end
+}
