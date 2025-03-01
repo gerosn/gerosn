@@ -1,0 +1,104 @@
+local UserInputService = game:GetService("UserInputService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    
+    if input.KeyCode == Enum.KeyCode.E then
+        executeSequence()
+    end
+end)
+
+function executeSequence()
+    local character = LocalPlayer.Character
+    if not character then return end
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    
+    if humanoid then
+        humanoid:ChangeState(Enum.HumanoidStateType.Jumping) -- Jump first
+    end
+    task.wait(0.2) -- Wait for jump
+
+    pressKey(Enum.KeyCode.Q) -- Press "Q"
+    task.wait(0.1) -- Short delay before teleporting
+
+    teleportBehindUnderNearestPlayer() -- Teleport behind & under
+    task.wait(0.05) -- Small delay before locking aim
+
+    hardAimLockNearestPlayer() -- Hard aim lock
+end
+
+function pressKey(key)
+    VirtualInputManager:SendKeyEvent(true, key, false, game) -- Press key
+    task.wait(0.05) -- Simulated key press duration
+    VirtualInputManager:SendKeyEvent(false, key, false, game) -- Release key
+end
+
+function getNearestPlayer()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+    local character = LocalPlayer.Character
+    if not character then return nil end
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    if not rootPart then return nil end
+
+    local myPosition = rootPart.Position
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = player.Character.HumanoidRootPart.Position
+            local distance = (myPosition - targetPosition).magnitude
+            if distance < shortestDistance then
+                shortestDistance = distance
+                closestPlayer = player
+            end
+        end
+    end
+
+    return closestPlayer
+end
+
+function teleportBehindUnderNearestPlayer()
+    local targetPlayer = getNearestPlayer()
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local targetRoot = targetPlayer.Character.HumanoidRootPart
+        local direction = targetRoot.CFrame.LookVector
+        local teleportPosition = targetRoot.Position - direction * 3 
+        teleportPosition = teleportPosition - Vector3.new(0, 2, 0) 
+
+        local character = LocalPlayer.Character
+        if character then
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                rootPart.CFrame = CFrame.new(teleportPosition)
+            end
+        end
+    end
+end
+
+function hardAimLockNearestPlayer()
+    local targetPlayer = getNearestPlayer()
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local targetRoot = targetPlayer.Character.HumanoidRootPart
+        local character = LocalPlayer.Character
+        if character then
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                local startTime = tick()
+                local connection
+                connection = RunService.RenderStepped:Connect(function()
+                    if tick() - startTime >= 0.5 then
+                        connection:Disconnect()
+                    else
+                        rootPart.CFrame = CFrame.new(rootPart.Position, targetRoot.Position) -- Lock onto target
+                    end
+                end)
+            end
+        end
+    end
+end
